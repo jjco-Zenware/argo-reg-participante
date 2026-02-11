@@ -1,0 +1,113 @@
+<div class="h-screen flex sm:col-12 lg:col-12 md:col-12 grid justify-content-center align-items-center p-0 m-0"
+    [ngStyle]="{
+        'background-image':
+            'url(assets/layout/images/pages/fondo_regis_contac.png)'
+    }" [ngClass]="{ 'bg-no-repeat bg-cover bg-center': true }" [style.backgroundSize]="'cover'"
+    [style.backgroundPosition]="'center center'" [style.backgroundAttachment]="'fixed'" style="
+        background: url('assets/layout/images/pages/fondo_regis_contac2.png');
+    ">
+    <div class="sm:col-12 lg:col-6 md:col-12 flex">
+        <div class="flex flex-column lg:col-12 sm:col-8 md:col-10">
+            <ng-container *ngIf="vistaLista; else visSecciones">
+                <div
+                    class="text-center sm:col-12 lg:col-12 md:col-12 flex flex-column align-items-center justify-content-center -mt-2">
+                    <div class="lg:colo-3 text-center">
+                        <img class="h-7rem" src="assets/layout/images/ico_negativo_sinfondo.png" />
+                    </div>
+                    <label class="text-white font-bolt text-2xl">{{
+                        headerTitle
+                        }}</label>
+                    <label class="text-white font-bolt text-2xl">{{
+                        detEvento
+                        }}</label>
+                    <!-- <div class="lg:colo-9 text-center justify-content-center align-items-center">                    
+                    <label class="text-white font-bolt text-2xl" >{{headerTitle}}</label>                    
+                    <label class="text-white font-bolt text-2xl" >{{detEvento}}</label>                    
+                </div> -->
+                </div>
+
+                <form [formGroup]="registerForm" class="p-fluid grid p-2 m-2 col-12">
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt">NOMBRES</label>
+                        <input pInputText type="text" formControlName="nomcontacto" class="text-white p-inputtext-sm"
+                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt">APELLIDOS</label>
+                        <input pInputText type="text" formControlName="apellidocontacto"
+                            class="text-white p-inputtext-sm" [readonly]="onlyRead"
+                            style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">TIPO DOCUMENTO</label>
+                        <span class="p-fluid mt-1">
+                            <p-dropdown [options]="lstTipoDocPer" formControlName="idtipodoc" optionLabel="valoritem"
+                                placeholder="Seleccionar..." optionValue="coditem"
+                                (onChange)="cambioTipoDoc($event.value)" class="p-inputtext-sm"
+                                [readonly]="onlyRead"></p-dropdown>
+                        </span>
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">N° DOCUMENTO
+                        </label>
+                        <span class="p-fluid mt-1">
+                            <input pInputText type="text" formControlName="nrodocumento"
+                                class="text-white p-inputtext-sm" [readonly]="onlyRead"
+                                style="background: rgba(201, 201, 219, 0.295)" />
+                        </span>
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">CARGO</label>
+                        <input pInputText type="text" formControlName="cargo" class="text-white p-inputtext-sm"
+                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">EMPRESA</label>
+                        <input pInputText type="text" formControlName="empresa" class="text-white p-inputtext-sm"
+                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">CELULAR</label>
+                        <input pInputText type="text" formControlName="telefono" class="text-white p-inputtext-sm"
+                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
+                        <label class="text-white font-semibolt mb-1">CORREO</label>
+                        <input pInputText type="text" formControlName="email" class="text-white p-inputtext-sm"
+                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                    </div>
+                </form>
+                <div class="flex justify-content-end lg:col-12 h-4rem">
+                    <button *ngIf="!onlyRead" pButton icon="pi pi-check" label="CONFIRMAR"
+                        class="p-button-success p-button-outlined h-2rem mr-3 text-white font-semibolt"
+                        (click)="guardarParticipante()"></button>
+                </div>
+            </ng-container>
+
+            <ng-template #visSecciones>
+                <div
+                    class="text-center sm:col-8 lg:col-12 md:col-10 flex flex-column align-items-center justify-content-center -mt-2">
+                    <div class="lg:colo-3 text-center">
+                        <img class="h-7rem" src="assets/layout/images/ico_negativo_sinfondo.png" />
+                    </div>
+                    <label class="text-white font-bolt text-2xl">{{
+                        headerTitle
+                        }}</label>
+                    <label class="text-white font-bolt text-2xl">{{
+                        detEvento
+                        }}</label>
+                    <!-- <div class="lg:colo-9 text-center justify-content-center align-items-center">                    
+                    <label class="text-white font-bolt text-2xl" >{{headerTitle}}</label>                    
+                    <label class="text-white font-bolt text-2xl" >{{detEvento}}</label>                    
+                </div> -->
+                </div>
+                <div class="text-center sm:col-8 lg:col-12 md:col-10" *ngIf="onlyRead">
+                    <label class="font-bolt text-5xl text-white">Gracias por Registrarse...!</label>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<app-c-progress-spinner *ngIf="blockedDocument" [IS_mensaje]="mensajeSpinner"></app-c-progress-spinner>
+<p-toast></p-toast>
