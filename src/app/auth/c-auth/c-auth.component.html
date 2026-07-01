@@ -1,111 +1,136 @@
-<div class="h-screen flex sm:col-12 lg:col-12 md:col-12 grid justify-content-center align-items-center p-0 m-0"
-    [ngStyle]="{
-        'background-image':
-            'url(assets/layout/images/pages/fondo_regis_contac.png)'
-    }" [ngClass]="{ 'bg-no-repeat bg-cover bg-center': true }" [style.backgroundSize]="'cover'"
-    [style.backgroundPosition]="'center center'" [style.backgroundAttachment]="'fixed'" style="
-        background: url('assets/layout/images/pages/fondo_regis_contac2.png');
-    ">
-    <div class="sm:col-12 lg:col-6 md:col-12 flex">
-        <div class="flex flex-column lg:col-12 sm:col-8 md:col-10">
-            <ng-container *ngIf="vistaLista; else visSecciones">
-                <div
-                    class="text-center sm:col-12 lg:col-12 md:col-12 flex flex-column align-items-center justify-content-center -mt-2">
-                    <div class="lg:colo-3 text-center">
-                        <img class="h-7rem" src="assets/layout/images/ico_negativo_sinfondo.png" />
+<div class="auth-wrapper" [style.backgroundImage]="'url(assets/layout/images/pages/fondo_regis_contac2.png)'">
+    <div class="auth-overlay"></div>
+
+    <div class="auth-card-container">
+
+        <ng-container *ngIf="vistaLista; else visSecciones">
+
+            <div class="auth-card">
+                <div class="auth-header">
+                    <img class="auth-logo" src="assets/layout/images/ico_negativo_sinfondo.png" alt="Logo" />
+                    <h1 class="auth-title">{{ headerTitle }}</h1>
+                    <div class="auth-event-badge">
+                        <i class="pi pi-calendar-clock mr-2"></i>
+                        <span>{{ detEvento }}</span>
                     </div>
-                    <label class="text-white font-bolt text-2xl">{{
-                        headerTitle
-                        }}</label>
-                    <label class="text-white font-bolt text-2xl">{{
-                        detEvento
-                        }}</label>
-                    <!-- <div class="lg:colo-9 text-center justify-content-center align-items-center">                    
-                    <label class="text-white font-bolt text-2xl" >{{headerTitle}}</label>                    
-                    <label class="text-white font-bolt text-2xl" >{{detEvento}}</label>                    
-                </div> -->
                 </div>
 
-                <form [formGroup]="registerForm" class="p-fluid grid p-2 m-2 col-12">
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt">NOMBRES</label>
-                        <input pInputText type="text" formControlName="nomcontacto" class="text-white p-inputtext-sm"
-                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+                <div class="auth-divider">
+                    <span>Completa tu registro</span>
+                </div>
+
+                <form [formGroup]="registerForm" class="auth-form">
+                    <div class="auth-form-row">
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-user mr-1"></i> Nombres
+                            </label>
+                            <input pInputText type="text" formControlName="nomcontacto"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Ingresa tu nombre" />
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-user mr-1"></i> Apellidos
+                            </label>
+                            <input pInputText type="text" formControlName="apellidocontacto"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Ingresa tus apellidos" />
+                        </div>
                     </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt">APELLIDOS</label>
-                        <input pInputText type="text" formControlName="apellidocontacto"
-                            class="text-white p-inputtext-sm" [readonly]="onlyRead"
-                            style="background: rgba(201, 201, 219, 0.295)" />
-                    </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">TIPO DOCUMENTO</label>
-                        <span class="p-fluid mt-1">
-                            <p-dropdown [options]="lstTipoDocPer" formControlName="idtipodoc" optionLabel="valoritem"
-                                placeholder="Seleccionar..." optionValue="coditem"
-                                (onChange)="cambioTipoDoc($event.value)" class="p-inputtext-sm"
-                                [readonly]="onlyRead"></p-dropdown>
-                        </span>
-                    </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">N° DOCUMENTO
-                        </label>
-                        <span class="p-fluid mt-1">
+
+                    <div class="auth-form-row">
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-id-card mr-1"></i> Tipo Documento
+                            </label>
+                            <p-dropdown [options]="lstTipoDocPer" formControlName="idtipodoc"
+                                optionLabel="valoritem" placeholder="Seleccionar..."
+                                optionValue="coditem" (onChange)="cambioTipoDoc($event.value)"
+                                styleClass="auth-dropdown" [readonly]="onlyRead">
+                            </p-dropdown>
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-hashtag mr-1"></i> N° Documento
+                            </label>
                             <input pInputText type="text" formControlName="nrodocumento"
-                                class="text-white p-inputtext-sm" [readonly]="onlyRead"
-                                style="background: rgba(201, 201, 219, 0.295)" />
-                        </span>
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Número de documento" />
+                        </div>
                     </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">CARGO</label>
-                        <input pInputText type="text" formControlName="cargo" class="text-white p-inputtext-sm"
-                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+
+                    <div class="auth-form-row">
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-briefcase mr-1"></i> Cargo
+                            </label>
+                            <input pInputText type="text" formControlName="cargo"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Tu cargo" />
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-building mr-1"></i> Empresa
+                            </label>
+                            <input pInputText type="text" formControlName="empresa"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Tu empresa" />
+                        </div>
                     </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">EMPRESA</label>
-                        <input pInputText type="text" formControlName="empresa" class="text-white p-inputtext-sm"
-                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
-                    </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">CELULAR</label>
-                        <input pInputText type="text" formControlName="telefono" class="text-white p-inputtext-sm"
-                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
-                    </div>
-                    <div class="h-4rem field col-6 lg:col-6 md:col-12">
-                        <label class="text-white font-semibolt mb-1">CORREO</label>
-                        <input pInputText type="text" formControlName="email" class="text-white p-inputtext-sm"
-                            [readonly]="onlyRead" style="background: rgba(201, 201, 219, 0.295)" />
+
+                    <div class="auth-form-row">
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-phone mr-1"></i> Celular
+                            </label>
+                            <input pInputText type="text" formControlName="telefono"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="Número de celular" />
+                        </div>
+                        <div class="auth-field">
+                            <label class="auth-label">
+                                <i class="pi pi-envelope mr-1"></i> Correo
+                            </label>
+                            <input pInputText type="text" formControlName="email"
+                                class="auth-input" [readonly]="onlyRead"
+                                placeholder="correo@ejemplo.com" />
+                        </div>
                     </div>
                 </form>
-                <div class="flex justify-content-end lg:col-12 h-4rem">
-                    <button *ngIf="!onlyRead" pButton icon="pi pi-check" label="CONFIRMAR"
-                        class="p-button-success p-button-outlined h-2rem mr-3 text-white font-semibolt"
-                        (click)="guardarParticipante()"></button>
-                </div>
-            </ng-container>
 
-            <ng-template #visSecciones>
-                <div
-                    class="text-center sm:col-8 lg:col-12 md:col-10 flex flex-column align-items-center justify-content-center -mt-2">
-                    <div class="lg:colo-3 text-center">
-                        <img class="h-7rem" src="assets/layout/images/ico_negativo_sinfondo.png" />
+                <div class="auth-actions" *ngIf="!onlyRead">
+                    <button pButton icon="pi pi-check-circle" label="CONFIRMAR REGISTRO"
+                        class="auth-btn-confirm" (click)="guardarParticipante()">
+                    </button>
+                </div>
+            </div>
+
+        </ng-container>
+
+        <ng-template #visSecciones>
+            <div class="auth-card auth-success-card">
+                <div class="auth-header">
+                    <img class="auth-logo" src="assets/layout/images/ico_negativo_sinfondo.png" alt="Logo" />
+                    <h1 class="auth-title">{{ headerTitle }}</h1>
+                    <div class="auth-event-badge">
+                        <i class="pi pi-calendar-clock mr-2"></i>
+                        <span>{{ detEvento }}</span>
                     </div>
-                    <label class="text-white font-bolt text-2xl">{{
-                        headerTitle
-                        }}</label>
-                    <label class="text-white font-bolt text-2xl">{{
-                        detEvento
-                        }}</label>
-                    <!-- <div class="lg:colo-9 text-center justify-content-center align-items-center">                    
-                    <label class="text-white font-bolt text-2xl" >{{headerTitle}}</label>                    
-                    <label class="text-white font-bolt text-2xl" >{{detEvento}}</label>                    
-                </div> -->
                 </div>
-                <div class="text-center sm:col-8 lg:col-12 md:col-10" *ngIf="onlyRead">
-                    <label class="font-bolt text-5xl text-white">Gracias por Registrarse...!</label>
+
+                <div class="auth-success-body" *ngIf="onlyRead">
+                    <div class="auth-success-icon">
+                        <i class="pi pi-check-circle"></i>
+                    </div>
+                    <h2 class="auth-success-title">¡Registro Exitoso!</h2>
+                    <p class="auth-success-subtitle">
+                        Gracias por registrarte. Te esperamos en el evento.
+                    </p>
                 </div>
-            </ng-template>
-        </div>
+            </div>
+        </ng-template>
+
     </div>
 </div>
 
